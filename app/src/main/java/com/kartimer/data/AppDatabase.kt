@@ -33,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun sessionDao(): SessionDao
 
     companion object {
-        const val DATABASE_NAME = "kartimer.db"
+        const val DATABASE_NAME = "marathon_timer.db"
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {

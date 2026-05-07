@@ -12,29 +12,29 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = KarTimerPrimary,
-    onPrimary = KarTimerOnPrimary,
-    primaryContainer = KarTimerPrimaryContainer,
-    onPrimaryContainer = KarTimerOnPrimaryContainer,
-    secondary = KarTimerSecondary,
-    onSecondary = KarTimerOnSecondary,
-    secondaryContainer = KarTimerSecondaryContainer,
-    onSecondaryContainer = KarTimerOnSecondaryContainer,
+    primary = MarathonTimerPrimary,
+    onPrimary = MarathonTimerOnPrimary,
+    primaryContainer = MarathonTimerPrimaryContainer,
+    onPrimaryContainer = MarathonTimerOnPrimaryContainer,
+    secondary = MarathonTimerSecondary,
+    onSecondary = MarathonTimerOnSecondary,
+    secondaryContainer = MarathonTimerSecondaryContainer,
+    onSecondaryContainer = MarathonTimerOnSecondaryContainer,
     background = DarkBackground,
     surface = DarkSurface,
-    onBackground = KarTimerOnBackground,
-    onSurface = KarTimerOnSurface
+    onBackground = MarathonTimerOnBackground,
+    onSurface = MarathonTimerOnSurface
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = KarTimerPrimary,
-    onPrimary = KarTimerOnPrimary,
-    primaryContainer = KarTimerPrimaryContainer,
-    onPrimaryContainer = KarTimerOnPrimaryContainer,
-    secondary = KarTimerSecondary,
-    onSecondary = KarTimerOnSecondary,
-    secondaryContainer = KarTimerSecondaryContainer,
-    onSecondaryContainer = KarTimerOnSecondaryContainer,
+    primary = MarathonTimerPrimary,
+    onPrimary = MarathonTimerOnPrimary,
+    primaryContainer = MarathonTimerPrimaryContainer,
+    onPrimaryContainer = MarathonTimerOnPrimaryContainer,
+    secondary = MarathonTimerSecondary,
+    onSecondary = MarathonTimerOnSecondary,
+    secondaryContainer = MarathonTimerSecondaryContainer,
+    onSecondaryContainer = MarathonTimerOnSecondaryContainer,
     background = Color(0xFFF8F9FF),
     surface = Color(0xFFF8F9FF),
     onBackground = Color(0xFF191C20),
@@ -42,7 +42,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun KarTimerTheme(
+fun MarathonTimerTheme(
     darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {

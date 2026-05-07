@@ -218,23 +218,6 @@ fun ChangePilotScreen(
 
             Spacer(Modifier.weight(1f))
 
-            // Handicap button
-            Button(
-                onClick = onHandicapClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(52.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7B1FA2))
-            ) {
-                Icon(Icons.Default.Timer, contentDescription = null)
-                Spacer(Modifier.width(8.dp))
-                Text(
-                    text = "Гандикап",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
             // Confirm button
             val canConfirm = selectedPilot != null && selectedKartNumber in 1..999
             Button(
@@ -256,6 +239,22 @@ fun ChangePilotScreen(
                 Spacer(Modifier.width(8.dp))
                 Text(
                     text = "Подтвердить смену",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            // Handicap button
+            Button(
+                onClick = onHandicapClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7B1FA2))
+            ) {
+                Icon(Icons.Default.Timer, contentDescription = null)
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = "Гандикап",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )

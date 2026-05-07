@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KarTimer"
+rootProject.name = "MarathonTimer"
 include(":app")

@@ -3,7 +3,7 @@ package com.kartimer
 import android.app.Application
 import com.kartimer.data.AppDatabase
 
-class KarTimerApp : Application() {
+class MarathonTimerApp : Application() {
 
     val database: AppDatabase by lazy {
         AppDatabase.getInstance(this)

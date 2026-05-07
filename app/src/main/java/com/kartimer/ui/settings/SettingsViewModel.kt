@@ -136,7 +136,7 @@ class SettingsViewModel(
                 }
 
                 val exportDir = File(appContext.cacheDir, "exports").also { it.mkdirs() }
-                val exportFile = File(exportDir, "kartimer_export.db")
+                val exportFile = File(exportDir, "marathon_timer_export.db")
                 dbFile.copyTo(exportFile, overwrite = true)
 
                 val uri: Uri = FileProvider.getUriForFile(
@@ -148,7 +148,7 @@ class SettingsViewModel(
                 val intent = Intent(Intent.ACTION_SEND).apply {
                     type = "application/octet-stream"
                     putExtra(Intent.EXTRA_STREAM, uri)
-                    putExtra(Intent.EXTRA_SUBJECT, "KarTimer Database Export")
+                    putExtra(Intent.EXTRA_SUBJECT, "Marathon Timer Database Export")
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
 

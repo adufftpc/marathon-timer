@@ -80,7 +80,7 @@ fun RaceScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "KarTimer",
+                text = "Marathon Timer",
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
@@ -278,7 +278,7 @@ fun RaceScreen(
                 onClick = onChangeClick,
                 modifier = Modifier.weight(1f).height(56.dp),
                 enabled = true,
-                colors = ButtonDefaults.buttonColors(containerColor = KarTimerPrimary)
+                colors = ButtonDefaults.buttonColors(containerColor = MarathonTimerPrimary)
             ) {
                 Icon(Icons.Default.SwapHoriz, contentDescription = null)
                 Spacer(Modifier.width(4.dp))
