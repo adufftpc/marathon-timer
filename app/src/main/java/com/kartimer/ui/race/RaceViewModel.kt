@@ -249,10 +249,10 @@ class RaceViewModel(
                 sessionEndTimestamp = pitStopStartTime + pitStopSec * 1000L
             }
 
-            val isInitialSetup = _currentPilot.value == null
+            val isPreRace = _raceState.value == RaceState.IDLE
             val sessionCount = repository.getSessionCountOnce()
 
-            if (!isInitialSetup && sessionDuration > 0) {
+            if (!isPreRace && sessionDuration > 0) {
                 repository.saveSession(
                     SessionEntity(
                         sessionNumber = sessionCount + 1,
@@ -271,7 +271,7 @@ class RaceViewModel(
             _lastChangeTimestamp.value = now
             sessionElapsedAtPause = 0L
 
-            if (toNext && !isInitialSetup) {
+            if (toNext && !isPreRace) {
                 // Mid-race change: new session carries the fixed pit stop duration already elapsed.
                 sessionStartWallTime = now - pitStopSec * 1000L
                 _sessionTimerState.value = pitStopSec

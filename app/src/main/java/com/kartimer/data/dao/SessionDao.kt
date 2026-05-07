@@ -30,4 +30,7 @@ interface SessionDao {
 
     @Query("DELETE FROM sessions")
     suspend fun deleteAllSessions()
+
+    @Query("UPDATE sessions SET best_lap_ms = :bestLapMs, avg_lap_ms = :avgLapMs WHERE id = :id")
+    suspend fun updateLapTimes(id: Int, bestLapMs: Long?, avgLapMs: Long?)
 }

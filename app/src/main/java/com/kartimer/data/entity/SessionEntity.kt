@@ -39,5 +39,11 @@ data class SessionEntity(
     val endTimestamp: Long,
 
     @ColumnInfo(name = "duration_seconds")
-    val durationSeconds: Int
+    val durationSeconds: Int,
+
+    @ColumnInfo(name = "best_lap_ms")
+    val bestLapMs: Long? = null,
+
+    @ColumnInfo(name = "avg_lap_ms")
+    val avgLapMs: Long? = null
 )

@@ -83,4 +83,7 @@ class RaceRepository(
     suspend fun saveSession(session: SessionEntity): Long = sessionDao.insertSession(session)
 
     suspend fun deleteAllSessions() = sessionDao.deleteAllSessions()
+
+    suspend fun updateSessionLapTimes(id: Int, bestLapMs: Long?, avgLapMs: Long?) =
+        sessionDao.updateLapTimes(id, bestLapMs, avgLapMs)
 }

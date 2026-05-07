@@ -31,6 +31,9 @@ import com.kartimer.ui.race.RaceViewModelFactory
 import com.kartimer.ui.settings.SettingsScreen
 import com.kartimer.ui.settings.SettingsViewModel
 import com.kartimer.ui.settings.SettingsViewModelFactory
+import com.kartimer.ui.history.SessionHistoryScreen
+import com.kartimer.ui.history.SessionHistoryViewModel
+import com.kartimer.ui.history.SessionHistoryViewModelFactory
 import com.kartimer.ui.stats.StatsScreen
 import com.kartimer.ui.stats.StatsViewModel
 import com.kartimer.ui.stats.StatsViewModelFactory
@@ -75,10 +78,14 @@ fun AppNavigation(navController: NavHostController) {
         startDestination = Routes.RACE
     ) {
         composable(Routes.RACE) {
+            val historyViewModel: SessionHistoryViewModel = viewModel(
+                factory = SessionHistoryViewModelFactory(repository)
+            )
             val statsViewModel: StatsViewModel = viewModel(
                 factory = StatsViewModelFactory(repository)
             )
-            val pagerState = rememberPagerState(pageCount = { 2 })
+            // Start on the Race page (index 1)
+            val pagerState = rememberPagerState(initialPage = 1, pageCount = { 3 })
 
             Column(modifier = Modifier.fillMaxSize()) {
                 HorizontalPager(
@@ -86,7 +93,8 @@ fun AppNavigation(navController: NavHostController) {
                     modifier = Modifier.weight(1f)
                 ) { page ->
                     when (page) {
-                        0 -> RaceScreen(
+                        0 -> SessionHistoryScreen(viewModel = historyViewModel)
+                        1 -> RaceScreen(
                             viewModel = raceViewModel,
                             onChangeClick = { navController.navigate(Routes.CHANGE_PILOT) },
                             onQrCodeClick = { showQrDialog = true },
@@ -97,7 +105,7 @@ fun AppNavigation(navController: NavHostController) {
                     }
                 }
 
-                // Page indicator dots
+                // Page indicator dots (3 pages)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -105,7 +113,7 @@ fun AppNavigation(navController: NavHostController) {
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    repeat(2) { index ->
+                    repeat(3) { index ->
                         Box(
                             modifier = Modifier
                                 .padding(horizontal = 3.dp)
