@@ -52,7 +52,11 @@ object Routes {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun AppNavigation(navController: NavHostController) {
+fun AppNavigation(
+    navController: NavHostController,
+    isDarkTheme: Boolean,
+    onThemeChange: (Boolean) -> Unit
+) {
     val context = LocalContext.current
     val appContext = context.applicationContext
 
@@ -173,6 +177,8 @@ fun AppNavigation(navController: NavHostController) {
             )
             SettingsScreen(
                 viewModel = settingsViewModel,
+                isDarkTheme = isDarkTheme,
+                onThemeChange = onThemeChange,
                 onBack = { navController.popBackStack() }
             )
         }

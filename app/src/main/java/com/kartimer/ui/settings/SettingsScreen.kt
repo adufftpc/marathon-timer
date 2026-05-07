@@ -24,6 +24,8 @@ import com.kartimer.ui.theme.TimerGreen
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel,
+    isDarkTheme: Boolean,
+    onThemeChange: (Boolean) -> Unit,
     onBack: () -> Unit
 ) {
     val formState by viewModel.formState.collectAsState()
@@ -83,6 +85,38 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(vertical = 16.dp)
         ) {
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Тема оформления",
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium
+                            )
+                            Text(
+                                text = if (isDarkTheme) "Тёмная" else "Светлая",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                            )
+                        }
+                        Switch(
+                            checked = isDarkTheme,
+                            onCheckedChange = onThemeChange
+                        )
+                    }
+                }
+            }
+
             item {
                 Text(
                     text = "Параметры гонки",
