@@ -21,6 +21,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
 import com.kartimer.R
 import com.kartimer.ui.race.RaceViewModel
+import com.kartimer.ui.theme.HandicapButtonColor
 import com.kartimer.ui.theme.TimerGreen
 import com.kartimer.ui.theme.TimerOrange
 import com.kartimer.ui.theme.TimerRed
@@ -251,7 +252,7 @@ fun ChangePilotScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7B1FA2))
+                colors = ButtonDefaults.buttonColors(containerColor = HandicapButtonColor)
             ) {
                 Icon(Icons.Default.Timer, contentDescription = null)
                 Spacer(Modifier.width(8.dp))

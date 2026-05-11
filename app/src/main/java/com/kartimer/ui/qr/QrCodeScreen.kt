@@ -26,6 +26,7 @@ import com.google.zxing.BarcodeFormat
 import com.kartimer.R
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
+import com.kartimer.ui.theme.MarathonTimerPrimary
 import com.kartimer.ui.race.RaceViewModel
 import com.kartimer.util.TimeFormatter
 import kotlinx.coroutines.Dispatchers
@@ -141,7 +142,7 @@ fun QrCodeScreen(
                 Button(
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0))
+                    colors = ButtonDefaults.buttonColors(containerColor = MarathonTimerPrimary)
                 ) {
                     Text(stringResource(R.string.btn_ok), fontWeight = FontWeight.Bold, color = Color.White)
                 }

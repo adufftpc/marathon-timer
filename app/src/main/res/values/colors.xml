@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Launcher -->
     <color name="ic_launcher_background">#1A1A2E</color>
+
+    <!-- Brand / primary -->
+    <color name="brand_primary">#1565C0</color>
+    <color name="brand_on_primary">#FFFFFF</color>
+    <color name="brand_primary_container">#D0E4FF</color>
+    <color name="brand_on_primary_container">#001C3B</color>
+    <color name="brand_secondary">#535F70</color>
+    <color name="brand_on_secondary">#FFFFFF</color>
+    <color name="brand_secondary_container">#D7E3F7</color>
+    <color name="brand_on_secondary_container">#101C2B</color>
+
+    <!-- Dark theme surfaces -->
+    <color name="app_background">#1A1A2E</color>
+    <color name="app_surface">#16213E</color>
+    <color name="app_on_background">#E2E2E9</color>
+    <color name="app_on_surface">#E2E2E9</color>
+    <color name="dark_background">#121212</color>
+    <color name="dark_surface">#1E1E1E</color>
+    <color name="dark_primary">#90CAF9</color>
+
+    <!-- Light theme surfaces -->
+    <color name="light_background">#F8F9FF</color>
+    <color name="light_on_background">#191C20</color>
+
+    <!-- Warning colors -->
+    <color name="warning_yellow">#FFC107</color>
+    <color name="warning_yellow_container">#FFECB3</color>
+    <color name="warning_red">#F44336</color>
+    <color name="warning_red_container">#FFCDD2</color>
+    <color name="warning_on_yellow">#1A1A00</color>
+    <color name="warning_on_red">#1A0000</color>
+
+    <!-- Timer / status colors -->
+    <color name="timer_green">#4CAF50</color>
+    <color name="timer_orange">#FF9800</color>
+    <color name="timer_red">#F44336</color>
+
+    <!-- UI element accent colors -->
+    <color name="handicap_button">#7B1FA2</color>
+    <color name="qr_button">#00695C</color>
+    <color name="min_pilot_time_mark">#FFA000</color>
 </resources>

@@ -336,7 +336,7 @@ fun RaceScreen(
                 onClick = onQrCodeClick,
                 modifier = Modifier.weight(1f).height(56.dp),
                 enabled = currentPilot != null,
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00695C))
+                colors = ButtonDefaults.buttonColors(containerColor = QrButtonColor)
             ) {
                 Icon(Icons.Default.QrCode, contentDescription = null)
                 Spacer(Modifier.width(4.dp))

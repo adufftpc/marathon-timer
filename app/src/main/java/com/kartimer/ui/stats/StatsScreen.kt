@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
 import com.kartimer.R
+import com.kartimer.ui.theme.MinPilotTimeMarkColor
 import com.kartimer.ui.theme.TimerGreen
 import com.kartimer.ui.theme.TimerRed
 import com.kartimer.util.TimeFormatter
@@ -232,7 +233,7 @@ private fun PilotProgressBar(
         if (minFraction in 0f..1f) {
             val minX = size.width * minFraction
             drawLine(
-                color = Color(0xFFFFA000),
+                color = MinPilotTimeMarkColor,
                 start = Offset(minX, 0f),
                 end   = Offset(minX, size.height),
                 strokeWidth = 2.dp.toPx()
