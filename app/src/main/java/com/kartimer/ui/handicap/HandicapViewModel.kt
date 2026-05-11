@@ -1,8 +1,10 @@
 package com.kartimer.ui.handicap
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.kartimer.R
 import com.kartimer.data.repository.RaceRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -12,7 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class HandicapViewModel(
-    private val repository: RaceRepository
+    private val repository: RaceRepository,
+    private val appContext: Context
 ) : ViewModel() {
 
     private val _handicapSeconds = MutableStateFlow(0L)
@@ -42,7 +45,7 @@ class HandicapViewModel(
             val handicap = team?.handicapSeconds?.toLong() ?: 0L
             _handicapSeconds.value = handicap
             _countdown.value = handicap
-            _teamName.value = team?.name ?: "Команда"
+            _teamName.value = team?.name ?: appContext.getString(R.string.label_team)
             if (handicap > 0) {
                 startCountdown(handicap)
             } else {
@@ -79,12 +82,13 @@ class HandicapViewModel(
 }
 
 class HandicapViewModelFactory(
-    private val repository: RaceRepository
+    private val repository: RaceRepository,
+    private val appContext: Context
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HandicapViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return HandicapViewModel(repository) as T
+            return HandicapViewModel(repository, appContext) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -15,6 +15,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
+import com.kartimer.R
 import com.kartimer.data.entity.TeamEntity
 import com.kartimer.ui.theme.TimerGreen
 import com.kartimer.ui.theme.TimerRed
@@ -43,7 +45,7 @@ fun TeamSetupScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(if (isEditing) "Редактировать команду" else "Команды")
+                    Text(if (isEditing) stringResource(R.string.team_edit_title) else stringResource(R.string.team_list_title))
                 },
                 navigationIcon = {
                     IconButton(onClick = {
@@ -51,14 +53,14 @@ fun TeamSetupScreen(
                     }) {
                         Icon(
                             imageVector = if (isEditing) Icons.Default.Close else Icons.Default.ArrowBack,
-                            contentDescription = if (isEditing) "Отмена" else "Назад"
+                            contentDescription = if (isEditing) stringResource(R.string.btn_cancel) else stringResource(R.string.btn_back)
                         )
                     }
                 },
                 actions = {
                     if (!isEditing) {
                         IconButton(onClick = { viewModel.startNewTeam() }) {
-                            Icon(Icons.Default.Add, contentDescription = "Добавить команду")
+                            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.cd_add_team))
                         }
                     }
                 },
@@ -117,7 +119,7 @@ private fun TeamListContent(
                 )
                 Spacer(Modifier.height(16.dp))
                 Text(
-                    text = "Команды не добавлены",
+                    text = stringResource(R.string.msg_no_teams),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
                 )
@@ -125,7 +127,7 @@ private fun TeamListContent(
                 Button(onClick = onAddTeam) {
                     Icon(Icons.Default.Add, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text("Добавить команду")
+                    Text(stringResource(R.string.btn_add_team))
                 }
             }
         }
@@ -154,16 +156,16 @@ private fun TeamListContent(
                                 fontWeight = FontWeight.SemiBold
                             )
                             Text(
-                                text = "Гандикап: ${team.handicapSeconds} сек.",
+                                text = stringResource(R.string.format_team_handicap, team.handicapSeconds),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                             )
                         }
                         IconButton(onClick = { onEditTeam(team) }) {
-                            Icon(Icons.Default.Edit, contentDescription = "Редактировать")
+                            Icon(Icons.Default.Edit, contentDescription = stringResource(R.string.cd_edit_team))
                         }
                         IconButton(onClick = { showDeleteDialog = true }) {
-                            Icon(Icons.Default.Delete, contentDescription = "Удалить", tint = TimerRed)
+                            Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.cd_delete_team), tint = TimerRed)
                         }
                     }
                 }
@@ -171,19 +173,19 @@ private fun TeamListContent(
                 if (showDeleteDialog) {
                     AlertDialog(
                         onDismissRequest = { showDeleteDialog = false },
-                        title = { Text("Удалить команду") },
-                        text = { Text("Удалить команду \"${team.name}\" и всех её пилотов?") },
+                        title = { Text(stringResource(R.string.dialog_delete_team_title)) },
+                        text = { Text(stringResource(R.string.format_dialog_delete_team_text, team.name)) },
                         confirmButton = {
                             TextButton(onClick = {
                                 onDeleteTeam(team)
                                 showDeleteDialog = false
                             }) {
-                                Text("Удалить", color = TimerRed)
+                                Text(stringResource(R.string.btn_delete), color = TimerRed)
                             }
                         },
                         dismissButton = {
                             TextButton(onClick = { showDeleteDialog = false }) {
-                                Text("Отмена")
+                                Text(stringResource(R.string.btn_cancel))
                             }
                         }
                     )
@@ -217,7 +219,7 @@ private fun TeamEditForm(
     ) {
         item {
             Text(
-                text = "Данные команды",
+                text = stringResource(R.string.section_team_data),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
@@ -227,7 +229,7 @@ private fun TeamEditForm(
             OutlinedTextField(
                 value = formState.name,
                 onValueChange = onNameChange,
-                label = { Text("Название команды") },
+                label = { Text(stringResource(R.string.field_team_name)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -236,7 +238,7 @@ private fun TeamEditForm(
             OutlinedTextField(
                 value = formState.number,
                 onValueChange = onNumberChange,
-                label = { Text("Номер команды") },
+                label = { Text(stringResource(R.string.field_team_number)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
@@ -251,7 +253,7 @@ private fun TeamEditForm(
                 OutlinedTextField(
                     value = formState.handicapSeconds,
                     onValueChange = onHandicapChange,
-                    label = { Text("Гандикап (сек)") },
+                    label = { Text(stringResource(R.string.field_handicap_sec)) },
                     modifier = Modifier.weight(1f),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
@@ -262,7 +264,7 @@ private fun TeamEditForm(
                 ) {
                     Icon(Icons.Default.Calculate, contentDescription = null)
                     Spacer(Modifier.width(4.dp))
-                    Text("Расчёт")
+                    Text(stringResource(R.string.btn_calculate))
                 }
             }
         }
@@ -275,7 +277,7 @@ private fun TeamEditForm(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Пилоты",
+                    text = stringResource(R.string.section_pilots),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
@@ -283,7 +285,7 @@ private fun TeamEditForm(
                 TextButton(onClick = onAddPilot) {
                     Icon(Icons.Default.Add, contentDescription = null)
                     Spacer(Modifier.width(4.dp))
-                    Text("Добавить пилота")
+                    Text(stringResource(R.string.btn_add_pilot))
                 }
             }
         }
@@ -306,7 +308,7 @@ private fun TeamEditForm(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Пилот ${index + 1}",
+                            text = stringResource(R.string.format_pilot_number, index + 1),
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                         )
@@ -317,7 +319,7 @@ private fun TeamEditForm(
                             ) {
                                 Icon(
                                     Icons.Default.Remove,
-                                    contentDescription = "Удалить пилота",
+                                    contentDescription = stringResource(R.string.cd_remove_pilot),
                                     tint = TimerRed,
                                     modifier = Modifier.size(18.dp)
                                 )
@@ -327,14 +329,14 @@ private fun TeamEditForm(
                     OutlinedTextField(
                         value = pilot.name,
                         onValueChange = { onPilotNameChange(index, it) },
-                        label = { Text("Имя пилота") },
+                        label = { Text(stringResource(R.string.field_pilot_name)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
                     )
                     OutlinedTextField(
                         value = pilot.weight,
                         onValueChange = { onPilotWeightChange(index, it) },
-                        label = { Text("Вес (кг, необяз.)") },
+                        label = { Text(stringResource(R.string.field_pilot_weight)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
@@ -355,7 +357,7 @@ private fun TeamEditForm(
                 Icon(Icons.Default.Save, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = "Сохранить команду",
+                    text = stringResource(R.string.btn_save_team),
                     fontWeight = FontWeight.Bold
                 )
             }

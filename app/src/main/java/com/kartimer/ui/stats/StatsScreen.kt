@@ -20,6 +20,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
+import com.kartimer.R
 import com.kartimer.ui.theme.TimerGreen
 import com.kartimer.ui.theme.TimerRed
 import com.kartimer.util.TimeFormatter
@@ -36,14 +38,14 @@ fun StatsScreen(viewModel: StatsViewModel) {
             .padding(horizontal = 12.dp)
     ) {
         Text(
-            text = "Статистика пилотов",
+            text = stringResource(R.string.stats_title),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 12.dp, bottom = 4.dp)
         )
         Text(
-            text = "Мин. время пилота: ${TimeFormatter.formatMinSec(minPilotTimeSec.toLong())}",
+            text = stringResource(R.string.format_min_pilot_time, TimeFormatter.formatMinSec(minPilotTimeSec.toLong())),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
             modifier = Modifier.padding(bottom = 12.dp)
@@ -55,7 +57,7 @@ fun StatsScreen(viewModel: StatsViewModel) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Нет данных.\nДобавьте команды и начните гонку.",
+                    text = stringResource(R.string.msg_no_data),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                     textAlign = TextAlign.Center
@@ -115,7 +117,7 @@ private fun TeamHeader(group: TeamStatsGroup) {
             modifier = Modifier.weight(1f)
         )
         Text(
-            text = "макс ${TimeFormatter.formatMinSec(group.maxPilotTimeSec.toLong())}",
+            text = stringResource(R.string.format_team_max_time, TimeFormatter.formatMinSec(group.maxPilotTimeSec.toLong())),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f)
         )

@@ -1,8 +1,10 @@
 package com.kartimer.ui.team
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.kartimer.R
 import com.kartimer.data.entity.PilotEntity
 import com.kartimer.data.entity.TeamEntity
 import com.kartimer.data.repository.RaceRepository
@@ -27,7 +29,8 @@ data class TeamFormState(
 )
 
 class TeamSetupViewModel(
-    private val repository: RaceRepository
+    private val repository: RaceRepository,
+    private val appContext: Context
 ) : ViewModel() {
 
     private val _teams = MutableStateFlow<List<TeamEntity>>(emptyList())
@@ -151,11 +154,11 @@ class TeamSetupViewModel(
         val handicap = form.handicapSeconds.toIntOrNull() ?: 0
 
         if (form.name.isBlank()) {
-            _saveResult.value = "Введите название команды"
+            _saveResult.value = appContext.getString(R.string.error_team_name_empty)
             return
         }
         if (teamNumber == null || teamNumber <= 0) {
-            _saveResult.value = "Введите корректный номер команды"
+            _saveResult.value = appContext.getString(R.string.error_invalid_team_number)
             return
         }
 
@@ -199,7 +202,7 @@ class TeamSetupViewModel(
                 }
             }
 
-            _saveResult.value = "Команда сохранена!"
+            _saveResult.value = appContext.getString(R.string.msg_team_saved)
             _isEditing.value = false
             _selectedTeam.value = null
         }
@@ -217,12 +220,13 @@ class TeamSetupViewModel(
 }
 
 class TeamSetupViewModelFactory(
-    private val repository: RaceRepository
+    private val repository: RaceRepository,
+    private val appContext: Context
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TeamSetupViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return TeamSetupViewModel(repository) as T
+            return TeamSetupViewModel(repository, appContext) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

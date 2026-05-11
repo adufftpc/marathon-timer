@@ -12,6 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
+import com.kartimer.R
 import com.kartimer.ui.theme.TimerGreen
 import com.kartimer.ui.theme.TimerOrange
 import com.kartimer.ui.theme.TimerRed
@@ -48,13 +50,13 @@ fun HandicapScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Гандикап") },
+                title = { Text(stringResource(R.string.handicap_title)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         viewModel.cancel()
                         onBack()
                     }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.btn_back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -79,7 +81,7 @@ fun HandicapScreen(
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = "Гандикап-старт",
+                text = stringResource(R.string.label_handicap_start),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
             )
@@ -88,7 +90,7 @@ fun HandicapScreen(
 
             if (isFinished) {
                 Text(
-                    text = "СТАРТ!",
+                    text = stringResource(R.string.label_go),
                     fontSize = 72.sp,
                     fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.Bold,
@@ -96,7 +98,7 @@ fun HandicapScreen(
                 )
                 Spacer(Modifier.height(16.dp))
                 Text(
-                    text = "Гандикап истёк — команда выезжает!",
+                    text = stringResource(R.string.msg_handicap_expired),
                     style = MaterialTheme.typography.bodyLarge,
                     color = TimerGreen
                 )
@@ -119,13 +121,13 @@ fun HandicapScreen(
                 )
                 Spacer(Modifier.height(16.dp))
                 Text(
-                    text = "Ожидайте старта...",
+                    text = stringResource(R.string.msg_wait_for_start),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "Гандикап: ${handicapSeconds} секунд",
+                    text = stringResource(R.string.format_handicap_seconds, handicapSeconds),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)
                 )
@@ -140,7 +142,7 @@ fun HandicapScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Отмена")
+                Text(stringResource(R.string.btn_cancel))
             }
         }
     }

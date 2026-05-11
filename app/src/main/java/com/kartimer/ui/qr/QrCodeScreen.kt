@@ -21,7 +21,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
 import com.google.zxing.BarcodeFormat
+import com.kartimer.R
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
 import com.kartimer.ui.race.RaceViewModel
@@ -40,11 +42,12 @@ fun QrCodeScreen(
     val currentTeam by raceViewModel.currentTeam.collectAsState()
     val lastChangeTimestamp by raceViewModel.lastChangeTimestamp.collectAsState()
 
+    val naStr = stringResource(R.string.label_na)
     val timeStr = TimeFormatter.formatTimestamp(lastChangeTimestamp)
-    val pilotName = currentPilot?.name ?: "—"
+    val pilotName = currentPilot?.name ?: naStr
     val kartNum = currentKartNumber.toString()
     val teamNumber = currentTeam?.number ?: 0
-    val teamName = currentTeam?.name ?: "—"
+    val teamName = currentTeam?.name ?: naStr
 
     val qrData = "$teamNumber,$teamName,$timeStr,$pilotName,$kartNum"
 
@@ -78,13 +81,13 @@ fun QrCodeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "QR-код смены",
+                        text = stringResource(R.string.qr_title),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
                     IconButton(onClick = onDismiss) {
-                        Icon(Icons.Default.Close, contentDescription = "Закрыть", tint = Color.Black)
+                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.btn_close), tint = Color.Black)
                     }
                 }
 
@@ -95,7 +98,7 @@ fun QrCodeScreen(
                 if (bitmap != null) {
                     Image(
                         bitmap = bitmap.asImageBitmap(),
-                        contentDescription = "QR код",
+                        contentDescription = stringResource(R.string.cd_qr_image),
                         modifier = Modifier
                             .size(280.dp)
                             .background(Color.White)
@@ -115,11 +118,11 @@ fun QrCodeScreen(
                 HorizontalDivider(color = Color.LightGray)
                 Spacer(Modifier.height(8.dp))
 
-                QrDataRow(label = "Команда №", value = teamNumber.toString())
-                QrDataRow(label = "Команда", value = teamName)
-                QrDataRow(label = "Время смены", value = timeStr)
-                QrDataRow(label = "Пилот", value = pilotName)
-                QrDataRow(label = "Карт №", value = kartNum)
+                QrDataRow(label = stringResource(R.string.label_team_number_prefix), value = teamNumber.toString())
+                QrDataRow(label = stringResource(R.string.label_team), value = teamName)
+                QrDataRow(label = stringResource(R.string.label_change_time), value = timeStr)
+                QrDataRow(label = stringResource(R.string.label_pilot), value = pilotName)
+                QrDataRow(label = stringResource(R.string.label_kart_number), value = kartNum)
 
                 Spacer(Modifier.height(8.dp))
 
@@ -140,7 +143,7 @@ fun QrCodeScreen(
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0))
                 ) {
-                    Text("OK", fontWeight = FontWeight.Bold, color = Color.White)
+                    Text(stringResource(R.string.btn_ok), fontWeight = FontWeight.Bold, color = Color.White)
                 }
             }
         }

@@ -26,6 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
+import com.kartimer.R
 import com.kartimer.data.entity.PilotEntity
 import com.kartimer.data.entity.SessionEntity
 import com.kartimer.ui.theme.TimerGreen
@@ -48,7 +50,7 @@ fun SessionHistoryScreen(viewModel: SessionHistoryViewModel) {
             .padding(horizontal = 12.dp)
     ) {
         Text(
-            text = "История сессий",
+            text = stringResource(R.string.history_title),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
@@ -70,7 +72,7 @@ fun SessionHistoryScreen(viewModel: SessionHistoryViewModel) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Сессий ещё нет.\nНачните гонку и выполните смену пилота.",
+                    text = stringResource(R.string.msg_no_sessions),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                     textAlign = TextAlign.Center
@@ -109,7 +111,7 @@ private fun PilotFilterRow(
     onSelectPilot: (Int?) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val selectedLabel = pilots.firstOrNull { it.id == selectedPilotId }?.name ?: "Все пилоты"
+    val selectedLabel = pilots.firstOrNull { it.id == selectedPilotId }?.name ?: stringResource(R.string.label_all_pilots)
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -122,7 +124,7 @@ private fun PilotFilterRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .menuAnchor(),
-            label = { Text("Фильтр по пилоту") },
+            label = { Text(stringResource(R.string.label_filter_by_pilot)) },
             leadingIcon = {
                 Icon(Icons.Default.FilterList, contentDescription = null)
             },
@@ -136,7 +138,7 @@ private fun PilotFilterRow(
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text("Все пилоты") },
+                text = { Text(stringResource(R.string.label_all_pilots)) },
                 onClick = {
                     onSelectPilot(null)
                     expanded = false
@@ -240,12 +242,12 @@ private fun SessionCard(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 LapTimeChip(
-                    label = "Лучший",
+                    label = stringResource(R.string.label_best),
                     value = session.bestLapMs?.let { TimeFormatter.formatLapTime(it) },
                     modifier = Modifier.weight(1f)
                 )
                 LapTimeChip(
-                    label = "Средний",
+                    label = stringResource(R.string.label_average),
                     value = session.avgLapMs?.let { TimeFormatter.formatLapTime(it) },
                     modifier = Modifier.weight(1f)
                 )
@@ -264,7 +266,7 @@ private fun SessionCard(
                     )
                     Spacer(Modifier.height(10.dp))
                     Text(
-                        text = "Введите время круга (М:СС.мс)",
+                        text = stringResource(R.string.label_enter_lap_time),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                     )
@@ -276,8 +278,8 @@ private fun SessionCard(
                         OutlinedTextField(
                             value = bestLapInput,
                             onValueChange = { bestLapInput = it },
-                            label = { Text("Лучший круг") },
-                            placeholder = { Text("0:00.000") },
+                            label = { Text(stringResource(R.string.field_best_lap)) },
+                            placeholder = { Text(stringResource(R.string.placeholder_lap_time)) },
                             modifier = Modifier.weight(1f),
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(
@@ -290,8 +292,8 @@ private fun SessionCard(
                         OutlinedTextField(
                             value = avgLapInput,
                             onValueChange = { avgLapInput = it },
-                            label = { Text("Средний круг") },
-                            placeholder = { Text("0:00.000") },
+                            label = { Text(stringResource(R.string.field_avg_lap)) },
+                            placeholder = { Text(stringResource(R.string.placeholder_lap_time)) },
                             modifier = Modifier.weight(1f),
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(
@@ -320,7 +322,7 @@ private fun SessionCard(
                             containerColor = TimerOrange
                         )
                     ) {
-                        Text("Сохранить", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.btn_save), fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -340,7 +342,7 @@ private fun LapTimeChip(label: String, value: String?, modifier: Modifier = Modi
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
         )
         Text(
-            text = value ?: "—",
+            text = value ?: stringResource(R.string.label_na),
             style = MaterialTheme.typography.bodySmall,
             fontFamily = FontFamily.Monospace,
             fontWeight = FontWeight.Medium,

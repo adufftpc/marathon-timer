@@ -7,6 +7,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.kartimer.R
 import com.kartimer.data.AppDatabase
 import com.kartimer.data.entity.SettingsEntity
 import com.kartimer.data.repository.RaceRepository
@@ -94,19 +95,19 @@ class SettingsViewModel(
         val pitStop = form.pitStopDurationSec.toIntOrNull()
 
         if (raceDuration == null || raceDuration <= 0) {
-            _saveResult.value = "Введите корректную длительность гонки"
+            _saveResult.value = appContext.getString(R.string.error_invalid_race_duration)
             return
         }
         if (maxSession == null || maxSession <= 0) {
-            _saveResult.value = "Введите корректную макс. длительность сессии"
+            _saveResult.value = appContext.getString(R.string.error_invalid_max_session)
             return
         }
         if (minSessions == null || minSessions <= 0) {
-            _saveResult.value = "Введите корректное минимальное количество сессий"
+            _saveResult.value = appContext.getString(R.string.error_invalid_min_sessions)
             return
         }
         if (pitStop == null || pitStop <= 0) {
-            _saveResult.value = "Введите корректную длительность пит-стопа"
+            _saveResult.value = appContext.getString(R.string.error_invalid_pit_stop)
             return
         }
 
@@ -122,7 +123,7 @@ class SettingsViewModel(
                     pitStopToNextSession = form.pitStopToNextSession
                 )
             )
-            _saveResult.value = "Настройки сохранены!"
+            _saveResult.value = appContext.getString(R.string.msg_settings_saved)
         }
     }
 
@@ -131,7 +132,7 @@ class SettingsViewModel(
             try {
                 val dbFile = appContext.getDatabasePath(AppDatabase.DATABASE_NAME)
                 if (!dbFile.exists()) {
-                    _saveResult.value = "База данных не найдена"
+                    _saveResult.value = appContext.getString(R.string.error_db_not_found)
                     return@launch
                 }
 
@@ -148,16 +149,16 @@ class SettingsViewModel(
                 val intent = Intent(Intent.ACTION_SEND).apply {
                     type = "application/octet-stream"
                     putExtra(Intent.EXTRA_STREAM, uri)
-                    putExtra(Intent.EXTRA_SUBJECT, "Marathon Timer Database Export")
+                    putExtra(Intent.EXTRA_SUBJECT, appContext.getString(R.string.msg_db_export_email_subject))
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
 
                 withContext(Dispatchers.Main) {
-                    _exportShareIntent.value = Intent.createChooser(intent, "Экспорт базы данных")
+                    _exportShareIntent.value = Intent.createChooser(intent, appContext.getString(R.string.msg_db_export_share_title))
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    _saveResult.value = "Ошибка экспорта: ${e.message}"
+                    _saveResult.value = appContext.getString(R.string.error_export, e.message ?: "")
                 }
             }
         }
@@ -176,11 +177,11 @@ class SettingsViewModel(
                 }
 
                 withContext(Dispatchers.Main) {
-                    _saveResult.value = "База данных импортирована. Перезапустите приложение."
+                    _saveResult.value = appContext.getString(R.string.msg_db_imported)
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    _saveResult.value = "Ошибка импорта: ${e.message}"
+                    _saveResult.value = appContext.getString(R.string.error_import, e.message ?: "")
                 }
             }
         }

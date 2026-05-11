@@ -14,10 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.collectAsState
+import com.kartimer.R
 import com.kartimer.ui.theme.*
 import com.kartimer.util.TimeFormatter
 
@@ -57,10 +59,10 @@ fun RaceScreen(
     }
 
     val warningText = when (warningState) {
-        WarningState.YELLOW_SESSION -> "ВНИМАНИЕ: Время сессии истекает скоро!"
-        WarningState.RED_SESSION -> "СРОЧНО: Немедленно сменить пилота!"
-        WarningState.YELLOW_COUNT -> "ВНИМАНИЕ: Мало сессий, ускорьтесь!"
-        WarningState.RED_COUNT -> "СРОЧНО: Критически мало сессий!"
+        WarningState.YELLOW_SESSION -> stringResource(R.string.warning_yellow_session)
+        WarningState.RED_SESSION -> stringResource(R.string.warning_red_session)
+        WarningState.YELLOW_COUNT -> stringResource(R.string.warning_yellow_count)
+        WarningState.RED_COUNT -> stringResource(R.string.warning_red_count)
         WarningState.NONE -> ""
     }
 
@@ -80,7 +82,7 @@ fun RaceScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Marathon Timer",
+                text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
@@ -89,14 +91,14 @@ fun RaceScreen(
                 IconButton(onClick = onTeamSetupClick) {
                     Icon(
                         imageVector = Icons.Default.Group,
-                        contentDescription = "Команды",
+                        contentDescription = stringResource(R.string.cd_teams),
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
                 IconButton(onClick = onSettingsClick) {
                     Icon(
                         imageVector = Icons.Default.Settings,
-                        contentDescription = "Настройки",
+                        contentDescription = stringResource(R.string.cd_settings),
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -134,7 +136,7 @@ fun RaceScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "ГОНКА",
+                    text = stringResource(R.string.label_race),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                     letterSpacing = 4.sp
@@ -157,7 +159,7 @@ fun RaceScreen(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "Осталось",
+                            text = stringResource(R.string.label_remaining),
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                         )
@@ -171,12 +173,12 @@ fun RaceScreen(
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "Сессий",
+                            text = stringResource(R.string.label_sessions),
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                         )
                         Text(
-                            text = "$completedSessions / ${settings.minSessions}",
+                            text = stringResource(R.string.format_sessions_count, completedSessions, settings.minSessions),
                             fontSize = 22.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = if (completedSessions < settings.minSessions &&
@@ -203,7 +205,7 @@ fun RaceScreen(
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
-                                text = "Ост. сессий",
+                                text = stringResource(R.string.label_rest_sessions),
                                 fontSize = 11.sp,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                             )
@@ -217,12 +219,12 @@ fun RaceScreen(
                         }
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
-                                text = "Ср. на сессию",
+                                text = stringResource(R.string.label_avg_per_session),
                                 fontSize = 11.sp,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                             )
                             Text(
-                                text = if (restSessions > 0) "$avgSessionMin мин" else "—",
+                                text = if (restSessions > 0) stringResource(R.string.format_value_min, avgSessionMin) else stringResource(R.string.label_na),
                                 fontSize = 20.sp,
                                 fontFamily = FontFamily.Monospace,
                                 fontWeight = FontWeight.SemiBold,
@@ -247,7 +249,7 @@ fun RaceScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "ТЕКУЩАЯ СЕССИЯ",
+                    text = stringResource(R.string.label_current_session),
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                     letterSpacing = 2.sp
@@ -272,12 +274,12 @@ fun RaceScreen(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "Пилот",
+                            text = stringResource(R.string.label_pilot),
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                         )
                         Text(
-                            text = currentPilot?.name ?: "—",
+                            text = currentPilot?.name ?: stringResource(R.string.label_na),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.onSurface
@@ -285,12 +287,12 @@ fun RaceScreen(
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "Карт №",
+                            text = stringResource(R.string.label_kart_number),
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                         )
                         Text(
-                            text = if (currentKartNumber > 0) currentKartNumber.toString() else "—",
+                            text = if (currentKartNumber > 0) currentKartNumber.toString() else stringResource(R.string.label_na),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.onSurface
@@ -298,12 +300,12 @@ fun RaceScreen(
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = "Макс. сессия",
+                            text = stringResource(R.string.label_max_session),
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                         )
                         Text(
-                            text = "${settings.maxSessionMin} мин",
+                            text = stringResource(R.string.format_value_min, settings.maxSessionMin),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.onSurface
@@ -328,7 +330,7 @@ fun RaceScreen(
             ) {
                 Icon(Icons.Default.SwapHoriz, contentDescription = null)
                 Spacer(Modifier.width(4.dp))
-                Text("Смена", fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.btn_change_pilot), fontWeight = FontWeight.Bold)
             }
             Button(
                 onClick = onQrCodeClick,
@@ -338,7 +340,7 @@ fun RaceScreen(
             ) {
                 Icon(Icons.Default.QrCode, contentDescription = null)
                 Spacer(Modifier.width(4.dp))
-                Text("QR", fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.btn_qr), fontWeight = FontWeight.Bold)
             }
         }
 
@@ -359,7 +361,7 @@ fun RaceScreen(
                     ) {
                         Icon(Icons.Default.PlayArrow, contentDescription = null)
                         Spacer(Modifier.width(4.dp))
-                        Text("Старт", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.btn_start), fontWeight = FontWeight.Bold)
                     }
                 }
                 RaceState.RUNNING -> {
@@ -370,7 +372,7 @@ fun RaceScreen(
                     ) {
                         Icon(Icons.Default.Pause, contentDescription = null)
                         Spacer(Modifier.width(4.dp))
-                        Text("Пауза", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.btn_pause), fontWeight = FontWeight.Bold)
                     }
                     Button(
                         onClick = { showResetDialog = true },
@@ -379,7 +381,7 @@ fun RaceScreen(
                     ) {
                         Icon(Icons.Default.Stop, contentDescription = null)
                         Spacer(Modifier.width(4.dp))
-                        Text("Сброс", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.btn_reset), fontWeight = FontWeight.Bold)
                     }
                 }
                 RaceState.PAUSED -> {
@@ -390,7 +392,7 @@ fun RaceScreen(
                     ) {
                         Icon(Icons.Default.PlayArrow, contentDescription = null)
                         Spacer(Modifier.width(4.dp))
-                        Text("Продолжить", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.btn_resume), fontWeight = FontWeight.Bold)
                     }
                     Button(
                         onClick = { showResetDialog = true },
@@ -399,7 +401,7 @@ fun RaceScreen(
                     ) {
                         Icon(Icons.Default.Stop, contentDescription = null)
                         Spacer(Modifier.width(4.dp))
-                        Text("Сброс", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.btn_reset), fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -410,8 +412,8 @@ fun RaceScreen(
     if (showResetDialog) {
         AlertDialog(
             onDismissRequest = { showResetDialog = false },
-            title = { Text("Сброс гонки") },
-            text = { Text("Сбросить таймер и все данные гонки? Это действие необратимо.") },
+            title = { Text(stringResource(R.string.dialog_reset_title)) },
+            text = { Text(stringResource(R.string.dialog_reset_text)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -419,12 +421,12 @@ fun RaceScreen(
                         showResetDialog = false
                     }
                 ) {
-                    Text("Сброс", color = TimerRed)
+                    Text(stringResource(R.string.btn_reset), color = TimerRed)
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showResetDialog = false }) {
-                    Text("Отмена")
+                    Text(stringResource(R.string.btn_cancel))
                 }
             }
         )

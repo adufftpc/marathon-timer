@@ -152,7 +152,7 @@ fun AppNavigation(
 
         composable(Routes.HANDICAP) {
             val handicapViewModel: HandicapViewModel = viewModel(
-                factory = HandicapViewModelFactory(repository)
+                factory = HandicapViewModelFactory(repository, appContext)
             )
             HandicapScreen(
                 viewModel = handicapViewModel,
@@ -163,7 +163,7 @@ fun AppNavigation(
 
         composable(Routes.TEAM_SETUP) {
             val teamSetupViewModel: TeamSetupViewModel = viewModel(
-                factory = TeamSetupViewModelFactory(repository)
+                factory = TeamSetupViewModelFactory(repository, appContext)
             )
             TeamSetupScreen(
                 viewModel = teamSetupViewModel,

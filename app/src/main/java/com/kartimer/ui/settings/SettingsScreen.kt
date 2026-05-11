@@ -14,10 +14,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.collectAsState
+import com.kartimer.R
 import com.kartimer.ui.theme.TimerGreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,10 +66,10 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Настройки") },
+                title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.btn_back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -99,12 +101,12 @@ fun SettingsScreen(
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "Тема оформления",
+                                text = stringResource(R.string.label_theme),
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontWeight = FontWeight.Medium
                             )
                             Text(
-                                text = if (isDarkTheme) "Тёмная" else "Светлая",
+                                text = if (isDarkTheme) stringResource(R.string.theme_dark) else stringResource(R.string.theme_light),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                             )
@@ -119,7 +121,7 @@ fun SettingsScreen(
 
             item {
                 Text(
-                    text = "Параметры гонки",
+                    text = stringResource(R.string.section_race_params),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
@@ -130,8 +132,8 @@ fun SettingsScreen(
                 SettingsTextField(
                     value = formState.raceDurationMin,
                     onValueChange = { viewModel.updateRaceDuration(it) },
-                    label = "Длительность гонки (мин)",
-                    supportingText = "По умолчанию: 360 мин (6 часов)"
+                    label = stringResource(R.string.field_race_duration),
+                    supportingText = stringResource(R.string.field_race_duration_hint)
                 )
             }
 
@@ -139,8 +141,8 @@ fun SettingsScreen(
                 SettingsTextField(
                     value = formState.maxSessionMin,
                     onValueChange = { viewModel.updateMaxSession(it) },
-                    label = "Макс. длительность сессии (мин)",
-                    supportingText = "По умолчанию: 35 мин"
+                    label = stringResource(R.string.field_max_session),
+                    supportingText = stringResource(R.string.field_max_session_hint)
                 )
             }
 
@@ -148,8 +150,8 @@ fun SettingsScreen(
                 SettingsTextField(
                     value = formState.minPilotTimeMin,
                     onValueChange = { viewModel.updateMinPilotTime(it) },
-                    label = "Мин. время пилота (мин)",
-                    supportingText = "По умолчанию: 50 мин"
+                    label = stringResource(R.string.field_min_pilot_time),
+                    supportingText = stringResource(R.string.field_min_pilot_time_hint)
                 )
             }
 
@@ -157,8 +159,8 @@ fun SettingsScreen(
                 SettingsTextField(
                     value = formState.minSessions,
                     onValueChange = { viewModel.updateMinSessions(it) },
-                    label = "Мин. количество сессий",
-                    supportingText = "По умолчанию: 15"
+                    label = stringResource(R.string.field_min_sessions),
+                    supportingText = stringResource(R.string.field_min_sessions_hint)
                 )
             }
 
@@ -166,8 +168,8 @@ fun SettingsScreen(
                 SettingsTextField(
                     value = formState.pitStopDurationSec,
                     onValueChange = { viewModel.updatePitStopDuration(it) },
-                    label = "Длительность пит-стопа (сек)",
-                    supportingText = "По умолчанию: 75 сек"
+                    label = stringResource(R.string.field_pit_stop_duration),
+                    supportingText = stringResource(R.string.field_pit_stop_duration_hint)
                 )
             }
 
@@ -185,15 +187,15 @@ fun SettingsScreen(
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "Пит-стоп засчитывается",
+                                text = stringResource(R.string.label_pit_stop_counted),
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontWeight = FontWeight.Medium
                             )
                             Text(
                                 text = if (formState.pitStopToNextSession)
-                                    "к следующей сессии"
+                                    stringResource(R.string.pit_stop_to_next)
                                 else
-                                    "к текущей сессии",
+                                    stringResource(R.string.pit_stop_to_current),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                             )
@@ -216,7 +218,7 @@ fun SettingsScreen(
                 ) {
                     Icon(Icons.Default.Save, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text("Сохранить настройки", fontWeight = FontWeight.Bold)
+                    Text(stringResource(R.string.btn_save_settings), fontWeight = FontWeight.Bold)
                 }
             }
 
@@ -225,7 +227,7 @@ fun SettingsScreen(
                 HorizontalDivider()
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "База данных",
+                    text = stringResource(R.string.section_database),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
@@ -241,12 +243,12 @@ fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "Экспорт базы данных",
+                            text = stringResource(R.string.label_export_db),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Medium
                         )
                         Text(
-                            text = "Поделиться файлом .db через системный диалог",
+                            text = stringResource(R.string.desc_export_db),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                         )
@@ -257,7 +259,7 @@ fun SettingsScreen(
                         ) {
                             Icon(Icons.Default.Share, contentDescription = null)
                             Spacer(Modifier.width(8.dp))
-                            Text("Экспортировать")
+                            Text(stringResource(R.string.btn_export))
                         }
                     }
                 }
@@ -272,12 +274,12 @@ fun SettingsScreen(
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text(
-                            text = "Импорт базы данных",
+                            text = stringResource(R.string.label_import_db),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Medium
                         )
                         Text(
-                            text = "Загрузить файл .db (заменит текущую базу данных)",
+                            text = stringResource(R.string.desc_import_db),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                         )
@@ -294,7 +296,7 @@ fun SettingsScreen(
                         ) {
                             Icon(Icons.Default.Folder, contentDescription = null)
                             Spacer(Modifier.width(8.dp))
-                            Text("Импортировать")
+                            Text(stringResource(R.string.btn_import))
                         }
                     }
                 }

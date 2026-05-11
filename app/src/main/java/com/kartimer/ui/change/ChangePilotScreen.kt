@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.res.stringResource
+import com.kartimer.R
 import com.kartimer.ui.race.RaceViewModel
 import com.kartimer.ui.theme.TimerGreen
 import com.kartimer.ui.theme.TimerOrange
@@ -55,13 +57,13 @@ fun ChangePilotScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Смена пилота") },
+                title = { Text(stringResource(R.string.change_pilot_title)) },
                 navigationIcon = {
                     IconButton(onClick = {
                         viewModel.stopCountdown()
                         onBack()
                     }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.btn_back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -89,7 +91,7 @@ fun ChangePilotScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "ПИЛОН (ВРЕМЯ В БОКСЕ)",
+                        text = stringResource(R.string.label_pit_box),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                         letterSpacing = 2.sp
@@ -114,7 +116,7 @@ fun ChangePilotScreen(
                     if (isPitStopFinished) {
                         Spacer(Modifier.height(8.dp))
                         Text(
-                            text = "Пит-стоп завершён — можно выезжать!",
+                            text = stringResource(R.string.msg_pit_stop_done),
                             color = TimerGreen,
                             fontWeight = FontWeight.Bold
                         )
@@ -130,7 +132,7 @@ fun ChangePilotScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "Выберите пилота",
+                        text = stringResource(R.string.label_select_pilot),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                     )
@@ -140,7 +142,7 @@ fun ChangePilotScreen(
                         onExpandedChange = { pilotDropdownExpanded = it }
                     ) {
                         OutlinedTextField(
-                            value = selectedPilot?.name ?: "— Выберите пилота —",
+                            value = selectedPilot?.name ?: stringResource(R.string.placeholder_select_pilot),
                             onValueChange = {},
                             readOnly = true,
                             modifier = Modifier
@@ -157,7 +159,7 @@ fun ChangePilotScreen(
                         ) {
                             if (pilots.isEmpty()) {
                                 DropdownMenuItem(
-                                    text = { Text("Нет пилотов. Добавьте их в настройках команды.") },
+                                    text = { Text(stringResource(R.string.msg_no_pilots)) },
                                     onClick = { pilotDropdownExpanded = false }
                                 )
                             } else {
@@ -184,7 +186,7 @@ fun ChangePilotScreen(
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "Номер карта",
+                        text = stringResource(R.string.field_kart_no),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                     )
@@ -207,7 +209,7 @@ fun ChangePilotScreen(
                                     viewModel.selectKartNumber(0)
                                 }
                             } ),
-                        placeholder = { Text("1–999") },
+                        placeholder = { Text(stringResource(R.string.placeholder_kart_range)) },
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         singleLine = true,
                         isError = kartNumberText.isNotEmpty() &&
@@ -238,7 +240,7 @@ fun ChangePilotScreen(
                 Icon(Icons.Default.Check, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = "Подтвердить смену",
+                    text = stringResource(R.string.btn_confirm_change),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -254,7 +256,7 @@ fun ChangePilotScreen(
                 Icon(Icons.Default.Timer, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = "Гандикап",
+                    text = stringResource(R.string.btn_handicap),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
