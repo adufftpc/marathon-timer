@@ -185,6 +185,52 @@ fun RaceScreen(
                         )
                     }
                 }
+
+                val restSessions = (settings.minSessions - completedSessions).coerceAtLeast(0)
+                val avgSessionMin = if (restSessions > 0)
+                    raceTimerState.remainingSeconds / 60L / restSessions
+                else 0L
+
+                if (raceTimerState.totalSeconds > 0) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = "Ост. сессий",
+                                fontSize = 11.sp,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            )
+                            Text(
+                                text = restSessions.toString(),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = if (restSessions > 0) MaterialTheme.colorScheme.onSurface
+                                        else TimerGreen
+                            )
+                        }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = "Ср. на сессию",
+                                fontSize = 11.sp,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            )
+                            Text(
+                                text = if (restSessions > 0) "$avgSessionMin мин" else "—",
+                                fontSize = 20.sp,
+                                fontFamily = FontFamily.Monospace,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                    }
+                }
             }
         }
 
