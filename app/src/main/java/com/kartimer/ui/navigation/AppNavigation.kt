@@ -55,7 +55,9 @@ object Routes {
 fun AppNavigation(
     navController: NavHostController,
     isDarkTheme: Boolean,
-    onThemeChange: (Boolean) -> Unit
+    onThemeChange: (Boolean) -> Unit,
+    currentLanguage: String,
+    onLanguageChange: (String) -> Unit
 ) {
     val context = LocalContext.current
     val appContext = context.applicationContext
@@ -179,6 +181,8 @@ fun AppNavigation(
                 viewModel = settingsViewModel,
                 isDarkTheme = isDarkTheme,
                 onThemeChange = onThemeChange,
+                currentLanguage = currentLanguage,
+                onLanguageChange = onLanguageChange,
                 onBack = { navController.popBackStack() }
             )
         }

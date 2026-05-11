@@ -28,6 +28,8 @@ fun SettingsScreen(
     viewModel: SettingsViewModel,
     isDarkTheme: Boolean,
     onThemeChange: (Boolean) -> Unit,
+    currentLanguage: String,
+    onLanguageChange: (String) -> Unit,
     onBack: () -> Unit
 ) {
     val formState by viewModel.formState.collectAsState()
@@ -87,6 +89,43 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(vertical = 16.dp)
         ) {
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(R.string.label_language),
+                            style = MaterialTheme.typography.bodyLarge,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            listOf("ru" to "RU", "en" to "EN").forEach { (code, label) ->
+                                val selected = currentLanguage == code
+                                if (selected) {
+                                    Button(
+                                        onClick = {},
+                                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp)
+                                    ) { Text(label, fontWeight = FontWeight.Bold) }
+                                } else {
+                                    OutlinedButton(
+                                        onClick = { onLanguageChange(code) },
+                                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp)
+                                    ) { Text(label) }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),

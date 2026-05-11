@@ -14,13 +14,19 @@ import com.kartimer.ui.navigation.AppNavigation
 import com.kartimer.ui.theme.MarathonTimerTheme
 
 class MainActivity : ComponentActivity() {
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(newBase.wrapWithLocale(readLanguage(newBase)))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val prefs = getSharedPreferences("marathon_timer_prefs", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         setContent {
-            var isDarkTheme by remember { mutableStateOf(prefs.getBoolean("dark_theme", true)) }
+            var isDarkTheme by remember { mutableStateOf(prefs.getBoolean(KEY_DARK_THEME, true)) }
+            val currentLanguage = prefs.getString(KEY_LANGUAGE, DEFAULT_LANGUAGE) ?: DEFAULT_LANGUAGE
 
             MarathonTimerTheme(darkTheme = isDarkTheme) {
                 Surface(
@@ -33,7 +39,13 @@ class MainActivity : ComponentActivity() {
                         isDarkTheme = isDarkTheme,
                         onThemeChange = { dark ->
                             isDarkTheme = dark
-                            prefs.edit().putBoolean("dark_theme", dark).apply()
+                            prefs.edit().putBoolean(KEY_DARK_THEME, dark).apply()
+                        },
+                        currentLanguage = currentLanguage,
+                        onLanguageChange = { lang ->
+                            prefs.edit().putString(KEY_LANGUAGE, lang).apply()
+                            updateApplicationLocale(applicationContext, lang)
+                            recreate()
                         }
                     )
                 }
