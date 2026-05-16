@@ -2,16 +2,16 @@ package com.kartimer.ui.change
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -64,7 +64,7 @@ fun ChangePilotScreen(
                         viewModel.stopCountdown()
                         onBack()
                     }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.btn_back))
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.btn_back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -107,12 +107,13 @@ fun ChangePilotScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     LinearProgressIndicator(
-                        progress = progressFraction,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(8.dp),
-                        color = countdownColor,
-                        trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f)
+                    progress = { progressFraction },
+                    modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(8.dp),
+                    color = countdownColor,
+                    trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f),
+                    strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
                     )
                     if (isPitStopFinished) {
                         Spacer(Modifier.height(8.dp))
